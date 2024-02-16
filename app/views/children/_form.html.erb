@@ -1,0 +1,47 @@
+<%= form_with(model: child) do |form| %>
+  <% if child.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(child.errors.count, "error") %> prohibited this child from being saved:</h2>
+
+      <ul>
+        <% child.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :baby_name, style: "display: block" %>
+    <%= form.text_field :baby_name %>
+  </div>
+
+  <div>
+    <%= form.label :parent_name, style: "display: block" %>
+    <%= form.text_field :parent_name %>
+  </div>
+
+  <div>
+    <%= form.label :date_of_birth, style: "display: block" %>
+    <%= form.date_field :date_of_birth %>
+  </div>
+
+  <div>
+    <%= form.label :gender, style: "display: block" %>
+    <%= form.text_field :gender %>
+  </div>
+
+  <div>
+    <%= form.label :phone_number, style: "display: block" %>
+    <%= form.text_field :phone_number %>
+  </div>
+
+  <div>
+    <%= form.label :weight, style: "display: block" %>
+    <%= form.number_field :weight %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,27 @@
+<%= form_with(model: vaccine) do |form| %>
+  <% if vaccine.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(vaccine.errors.count, "error") %> prohibited this vaccine from being saved:</h2>
+
+      <ul>
+        <% vaccine.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name, style: "display: block" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :status, style: "display: block" %>
+    <%= form.text_field :status %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

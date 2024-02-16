@@ -67,3 +67,8 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem "devise", "~> 4.9"
+
+gem 'nokogiri'
+gem "africastalking-ruby"
