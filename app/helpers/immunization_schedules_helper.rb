@@ -1,0 +1,2 @@
+module ImmunizationSchedulesHelper
+end

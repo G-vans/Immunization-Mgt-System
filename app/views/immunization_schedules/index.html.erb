@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Immunization schedules</h1>
+
+<div id="immunization_schedules">
+  <% @immunization_schedules.each do |immunization_schedule| %>
+    <%= render immunization_schedule %>
+    <p>
+      <%= link_to "Show this immunization schedule", immunization_schedule %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New immunization schedule", new_immunization_schedule_path %>

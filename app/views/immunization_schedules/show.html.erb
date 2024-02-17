@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @immunization_schedule %>
+
+<div>
+  <%= link_to "Edit this immunization schedule", edit_immunization_schedule_path(@immunization_schedule) %> |
+  <%= link_to "Back to immunization schedules", immunization_schedules_path %>
+
+  <%= button_to "Destroy this immunization schedule", @immunization_schedule, method: :delete %>
+</div>

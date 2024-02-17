@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_16_144800) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_17_080802) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -23,6 +23,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_16_144800) do
     t.integer "weight"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "immunization_schedules", force: :cascade do |t|
+    t.string "vaxx_name"
+    t.date "scheduled_date"
+    t.bigint "child_id", null: false
+    t.bigint "medic_id", null: false
+    t.boolean "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["child_id"], name: "index_immunization_schedules_on_child_id"
+    t.index ["medic_id"], name: "index_immunization_schedules_on_medic_id"
   end
 
   create_table "medics", force: :cascade do |t|
@@ -45,4 +57,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_16_144800) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "immunization_schedules", "children"
+  add_foreign_key "immunization_schedules", "medics"
 end

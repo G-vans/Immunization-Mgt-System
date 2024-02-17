@@ -1,0 +1,42 @@
+<%= form_with(model: immunization_schedule) do |form| %>
+  <% if immunization_schedule.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(immunization_schedule.errors.count, "error") %> prohibited this immunization_schedule from being saved:</h2>
+
+      <ul>
+        <% immunization_schedule.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :vaxx_name, style: "display: block" %>
+    <%= form.text_field :vaxx_name %>
+  </div>
+
+  <div>
+    <%= form.label :scheduled_date, style: "display: block" %>
+    <%= form.date_field :scheduled_date %>
+  </div>
+
+  <div>
+    <%= form.label :child_id, style: "display: block" %>
+    <%= form.text_field :child_id %>
+  </div>
+
+  <div>
+    <%= form.label :medic_id, style: "display: block" %>
+    <%= form.text_field :medic_id %>
+  </div>
+
+  <div>
+    <%= form.label :status, style: "display: block" %>
+    <%= form.check_box :status %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
