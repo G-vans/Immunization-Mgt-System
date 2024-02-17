@@ -1,0 +1,100 @@
+<div class="row dashboard-color">
+  <!-- Sidebar -->
+  <div class="col-md-3 col-xl-2 sidebar">
+    <%= render partial: "shared/sidebar" %>
+  </div>
+
+  <div class="col-md-9 col-xl-10">
+    <h2>Welcome to your Dashboard</h2>
+    <div class="main-content-container d-flex justify-content-between flex-wrap">
+      <!-- Total Babies Registered -->
+      <div class="card" style="width: 18rem; height: 8rem;">
+        <div class="card-body text-center">
+          <i class="fas fa-2x fa-regular fa-baby mb-2"></i>
+          <span class="data-bold"><%= @total_babies_registered %></span>
+          <p class="mb-0">Total Babies Registered</p>
+        </div>
+      </div>
+
+      <!-- Today's Scheduled Immunizations -->
+      <div class="card" style="width: 18rem; height: 8rem;">
+        <div class="card-body text-center">
+          <i class="fas fa-2x fa-regular fa-calendar-day mb-2"></i>
+          <span class="data-bold"><%= @todays_scheduled_immunizations %></span>
+          <p class="mb-0">Today's Schedules</p>
+        </div>
+      </div>
+
+      <!-- Missed Immunizations -->
+      <div class="card" style="width: 18rem; height: 8rem;">
+        <div class="card-body text-center">
+          <i class=" fas fa-2x fa-regular fa-exclamation-circle mb-2"></i>
+          <span class="data-bold"><%= @missed_immunizations %></span>
+          <p class="mb-0">Missed Immunizations</p>
+        </div>
+      </div>
+    </div>
+    <br />
+    <h3 class="text-center">List of Today's schedules</h3>
+    <div class="table-responsive">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Immunization Name</th>
+            <th>Child</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if @todays_immunizations.empty? %>
+            <tr>
+              <td colspan="4"><p>No immunization scheduled today.</p></td>
+            </tr>
+          <% else %>
+            <% @todays_immunizations.each do |immunization_schedule| %>
+              <tr>
+                <td><%= truncate(immunization_schedule.vaxx_name, length: 40) %></td>
+                <td><%= immunization_schedule.child.baby_name %></td>
+                <td><%= immunization_schedule.status ? 'Already Taken' : 'Not Taken' %>
+              </tr>
+            <% end %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+
+    <br />
+
+    <h3 class="text-center">List of missed schedules</h3>
+    <div class="table-responsive">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Immunization Name</th>
+            <th>Child</th>
+            <th>Date</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if @missed_schedules.empty? %>
+            <tr>
+              <td colspan="4"><p>No missed schedules.</p></td>
+            </tr>
+          <% else %>
+            <% @missed_schedules.each do |missed_schedule| %>
+              <tr>
+                <td><%= truncate(missed_schedule.vaxx_name, length: 40) %></td>
+                <td><%= missed_schedule.child.baby_name %></td>
+                <td><%= missed_schedule.scheduled_date %></td>
+                <td><%= link_to "Follow up", missed_schedule, class: "btn btn-info btn-sm mr-1" %>
+              </tr>
+            <% end %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+
+
+  </div>
+</div>

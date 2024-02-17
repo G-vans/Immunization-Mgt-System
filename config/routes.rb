@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'dashboard/index'
   resources :immunization_schedules
   # get 'home/index'
   devise_for :medics
