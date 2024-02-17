@@ -43,6 +43,7 @@ class ChildrenController < ApplicationController
 
     respond_to do |format|
       if @child.save
+        send_sms(@child)
         format.html { redirect_to child_url(@child), notice: "Child was successfully created." }
         format.json { render :show, status: :created, location: @child }
       else
@@ -85,4 +86,41 @@ class ChildrenController < ApplicationController
     def child_params
       params.require(:child).permit(:baby_name, :parent_name, :date_of_birth, :gender, :phone_number, :weight)
     end
+
+    def send_sms(child)
+      
+        username = "Gvans"
+        apikey = ENV["AT_APIKEY"]
+      
+        # Initialize the SDK
+        @AT = AfricasTalking::Initialize.new(username, apikey)
+      
+        sms = @AT.sms
+      
+      baby = child.baby_name
+      parent = child.parent_name
+      to = child.phone_number
+      
+        # Send the welcome message
+        message = "Welcome, #{parent}! Get ready for Chanjo, your ultimate immunization reminder app for your precious little one, #{baby}. We'll ensure you never miss a vaccination appointment. Stay tuned for regular reminders and keep your baby protected!"
+        
+      
+        options = {
+          "to" => to,
+          "message" => message
+        }
+      
+        begin
+          # Send the SMS and retrieve the response
+          response = sms.send(options)
+      
+          # Log success or any necessary information
+          Rails.logger.info "SMS sent successfully"
+        rescue AfricasTalking::AfricasTalkingException => ex
+          # Log error or any necessary information
+          Rails.logger.error "Failed to send SMS: #{ex.message}"
+        end
+        
+      end
+
 end
