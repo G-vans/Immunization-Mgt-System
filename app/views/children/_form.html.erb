@@ -1,6 +1,6 @@
 <%= form_with(model: child) do |form| %>
   <% if child.errors.any? %>
-    <div style="color: red">
+    <div class="alert alert-danger">
       <h2><%= pluralize(child.errors.count, "error") %> prohibited this child from being saved:</h2>
 
       <ul>
@@ -11,37 +11,38 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :baby_name, style: "display: block" %>
-    <%= form.text_field :baby_name %>
+  <div class="form-group">
+    <%= form.label :baby_name %>
+    <%= form.text_field :baby_name, class: "form-control" %>
   </div>
 
-  <div>
-    <%= form.label :parent_name, style: "display: block" %>
-    <%= form.text_field :parent_name %>
+  <div class="form-group">
+    <%= form.label :parent_name %>
+    <%= form.text_field :parent_name, class: "form-control" %>
   </div>
 
-  <div>
-    <%= form.label :date_of_birth, style: "display: block" %>
-    <%= form.date_field :date_of_birth %>
+  <div class="form-group">
+    <%= form.label :date_of_birth %>
+    <%= form.date_field :date_of_birth, class: "form-control" %>
   </div>
 
-  <div>
-    <%= form.label :gender, style: "display: block" %>
-    <%= form.text_field :gender %>
+  <div class="form-group">
+    <%= form.label :gender %>
+    <%= form.text_field :gender, class: "form-control" %>
   </div>
 
-  <div>
-    <%= form.label :phone_number, style: "display: block" %>
-    <%= form.text_field :phone_number %>
+  <div class="form-group">
+    <%= form.label :phone_number, "Phone Number (start with 2547...)" %>
+    <%= form.number_field :phone_number, class: "form-control" %>
   </div>
 
-  <div>
-    <%= form.label :weight, style: "display: block" %>
-    <%= form.number_field :weight %>
+  <div class="form-group">
+    <%= form.label :weight, "Weight in KGs" %>
+    <%= form.number_field :weight, class: "form-control" %>
   </div>
-
-  <div>
-    <%= form.submit %>
+  <br />
+  <div class="form-group">
+    <%= form.submit class: "btn btn-primary" %>
   </div>
+</form>
 <% end %>

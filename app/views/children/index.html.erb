@@ -1,14 +1,55 @@
-<p style="color: green"><%= notice %></p>
+<div class="container-fluid">
+  <div class="row">
+    <!-- Sidebar -->
+    <div class="col-md-3 col-xl-2 sidebar">
+      <%= render partial: "shared/sidebar" %>
+    </div>
 
-<h1>Children</h1>
-
-<div id="children">
-  <% @children.each do |child| %>
-    <%= render child %>
-    <p>
-      <%= link_to "Show this child", child %>
-    </p>
-  <% end %>
+    <!-- Main Content -->
+    <div class="col-md-9 col-xl-10">
+      <div class="main-content-container">
+        <h1>Children List</h1>
+        <div class="row">
+          <div class="col-md-6">
+            <%= form_with url: children_path, class: "search-form", method: :get do |form| %>
+              <div class="input-group">
+                <%= form.text_field :name, value: params[:name], class: "form-control", placeholder: "Search for a child by name" %>
+                <div class="input-group-append">
+                  <%= form.submit "Search", class: "btn btn-primary" %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+          <div class="col-md-6 text-right">
+            <%= link_to "New Child", new_child_path, class: "btn btn-success" %>
+          </div>
+        </div>
+        <br />
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Child Name</th>
+                <th>Parent Name</th>
+                <th>Date of Birth</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @children.each do |child| %>
+                <tr>
+                  <td><%= child.baby_name %></td>
+                  <td><%= child.parent_name %></td>
+                  <td><%= child.date_of_birth %></td>
+                  <td>
+                    <%= link_to "View more", child, class: "btn btn-info btn-sm mr-1" %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-
-<%= link_to "New child", new_child_path %>

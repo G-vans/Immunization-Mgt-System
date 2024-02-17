@@ -3,17 +3,31 @@ class ImmunizationSchedulesController < ApplicationController
 
   # GET /immunization_schedules or /immunization_schedules.json
   def index
-    @immunization_schedules = ImmunizationSchedule.all
+    if params[:name].present?
+      search_term = "%#{params[:name].downcase}%"
+      @immunization_schedules = ImmunizationSchedule.joins(:child).where("lower(children.baby_name) LIKE ?", search_term)
+    else
+      @immunization_schedules = ImmunizationSchedule.all
+    end
   end
 
   # GET /immunization_schedules/1 or /immunization_schedules/1.json
   def show
+    @immunization_schedule = ImmunizationSchedule.find(params[:id])
+    @child = @immunization_schedule.child 
+  end  
+
+  def new
+    @child = Child.find(params[:child_id])
+    @immunization_schedule = @child.immunization_schedules.build
   end
 
-  # GET /immunization_schedules/new
-  def new
-    @immunization_schedule = ImmunizationSchedule.new
-  end
+  def update_status
+  @schedule = ImmunizationSchedule.find(params[:id])
+  @schedule.update(status: true) 
+  flash[:notice] = "Immunization status updated successfully."
+  redirect_to @schedule.child 
+end
 
   # GET /immunization_schedules/1/edit
   def edit
@@ -22,7 +36,7 @@ class ImmunizationSchedulesController < ApplicationController
   # POST /immunization_schedules or /immunization_schedules.json
   def create
     @immunization_schedule = ImmunizationSchedule.new(immunization_schedule_params)
-
+    @immunization_schedule.medic_id = current_medic.id
     respond_to do |format|
       if @immunization_schedule.save
         format.html { redirect_to immunization_schedule_url(@immunization_schedule), notice: "Immunization schedule was successfully created." }

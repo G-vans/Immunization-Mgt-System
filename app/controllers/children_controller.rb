@@ -3,11 +3,18 @@ class ChildrenController < ApplicationController
 
   # GET /children or /children.json
   def index
-    @children = Child.all
+    if params[:name].present?
+      search_term = "%#{params[:name].downcase}%"
+      @children = Child.where("lower(baby_name) LIKE ?", search_term)
+    else
+      @children = Child.all
+    end
   end
 
   # GET /children/1 or /children/1.json
   def show
+    @child = Child.find(params[:id])
+    @baby_schedules = @child.immunization_schedules
   end
 
   # GET /children/new
@@ -18,6 +25,17 @@ class ChildrenController < ApplicationController
   # GET /children/1/edit
   def edit
   end
+
+  def update_status
+    @child = Child.find(params[:child_id]) 
+    @schedule = @child.immunization_schedules.find(params[:id])
+    if @schedule.update(status: true)
+      flash[:notice] = "Immunization status updated successfully."
+    else
+      flash[:error] = "Failed to update immunization status."
+    end
+    redirect_to child_path(@child)
+  end 
 
   # POST /children or /children.json
   def create

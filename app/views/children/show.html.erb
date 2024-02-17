@@ -1,10 +1,64 @@
-<p style="color: green"><%= notice %></p>
-
-<%= render @child %>
-
-<div>
-  <%= link_to "Edit this child", edit_child_path(@child) %> |
-  <%= link_to "Back to children", children_path %>
-
-  <%= button_to "Destroy this child", @child, method: :delete %>
+<div class="row">
+  <!-- Sidebar -->
+  <div class="col-md-3 col-xl-2 bg-light sidebar">
+    <%= render partial: "shared/sidebar" %>
+  </div>
+  
+  <!-- Main Content -->
+  <div class="col-md-9 col-xl-10">
+    <div class="main-content-container">
+      <!-- Child Details -->
+      <div class="row">
+        <div class="col-md-4">
+          <%= render @child %>
+          <div class="mt-3 button-container">
+            <%= link_to "Back", children_path, class: "btn btn-primary btn-block" %>
+            <%= link_to "Edit", edit_child_path(@child), class: "btn btn-secondary btn-block" %>
+            <%= button_to "Destroy", @child, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-block" %>
+          </div>
+        </div>
+        
+        <!-- Immunization Schedule Table -->
+        <div class="col-md-8">
+          <h1 class="mb-3">Immunization schedules</h1>
+          <% if @child.immunization_schedules.empty? %>
+            <p>No immunization scheduled yet.</p>
+            <%= link_to "Schedule Immunization", new_child_immunization_schedule_path(@child), class: "btn btn-primary btn-block" %>
+          <% else %>
+            <div class="table-responsive">
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>Immunization Name</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% @child.immunization_schedules.each do |baby_schedule| %>
+                    <tr>
+                      <td><%= truncate(baby_schedule.vaxx_name, length: 30) %></td>
+                      <td><%= baby_schedule.scheduled_date %></td>
+                      <td>
+                        <% if baby_schedule.status === true %>
+                          <span class="btn btn-info btn-sm">Taken</span>
+                        <% else %>
+                          <%= form_with(model: baby_schedule, url: update_status_child_immunization_schedule_path(@child, baby_schedule), data: { 'turbo-method': :patch }) do |form| %>
+                            <%= form.hidden_field :status, value: true %>
+                            <%= form.submit "Mark as Taken", class: "btn btn-info btn-sm" %>
+                          <% end %>
+                        <% end %>
+                      </td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+            <%= link_to "Add Vaccine", new_vaccine_path, class: "btn btn-primary btn-block" %>
+            <%= link_to "Schedule Immunization", new_child_immunization_schedule_path(@child), class: "btn btn-primary btn-block" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
