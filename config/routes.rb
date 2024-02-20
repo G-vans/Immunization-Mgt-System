@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   get 'dashboard/index'
   post '/send_sms', to: 'children#send_sms'
+  post '/follow_up', to: 'immunization_schedules#follow_up_call'
   # resources :immunization_schedules
   # get 'home/index'
   devise_for :medics

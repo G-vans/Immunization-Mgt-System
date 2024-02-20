@@ -72,3 +72,5 @@ gem "devise", "~> 4.9"
 
 gem 'nokogiri'
 gem "africastalking-ruby"
+
+gem "twilio-ruby", "~> 6.11"

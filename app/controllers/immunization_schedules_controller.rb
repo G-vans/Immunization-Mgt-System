@@ -71,6 +71,31 @@ end
     end
   end
 
+  #twilio follow up call
+
+  def follow_up_call
+    account_sid = ENV['TWILIO_ACCOUNT_SID']
+    
+    auth_token = ENV['TWILIO_AUTH_TOKEN']
+    
+    @client = Twilio::REST::Client.new(account_sid, auth_token)
+  
+    begin
+      call = @client.calls.create(
+        url: 'http://demo.twilio.com/docs/voice.xml',
+        to: '+254727538865',
+        from: '+15755793821'
+      )
+  
+      # Redirect to dashboard on success
+      redirect_to dashboard_index_path, notice: 'Call successfully initiated.'
+    rescue Twilio::REST::TwilioError => e
+      # Handle Twilio API errors and display a flash alert
+      redirect_to root_path, alert: "Error initiating call: #{e.message}"
+    end
+  end
+  
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_immunization_schedule
