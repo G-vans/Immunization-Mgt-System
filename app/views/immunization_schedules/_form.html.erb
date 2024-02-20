@@ -1,6 +1,6 @@
 <%= form_with(model: immunization_schedule) do |form| %>
   <% if immunization_schedule.errors.any? %>
-    <div style="color: red">
+    <div class="alert alert-danger">
       <h2><%= pluralize(immunization_schedule.errors.count, "error") %> prohibited this immunization_schedule from being saved:</h2>
 
       <ul>
@@ -11,32 +11,29 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :vaxx_name, style: "display: block" %>
-    <%= form.text_field :vaxx_name %>
+  <div class="form-group">
+    <%= form.label :vaxx_name %>
+    <%= form.collection_select :vaxx_name, ImmunizationSchedule::VACCINE_NAMES, :to_s, :to_s, { prompt: "Select an immunization" }, class: "form-control" %>
   </div>
 
-  <div>
-    <%= form.label :scheduled_date, style: "display: block" %>
-    <%= form.date_field :scheduled_date %>
+  <div class="form-group">
+    <%= form.label :scheduled_date %>
+    <%= form.date_field :scheduled_date, class: "form-control" %>
   </div>
 
-  <div>
-    <%= form.label :child_id, style: "display: block" %>
-    <%= form.text_field :child_id %>
+  <div class="form-group">
+    <%= form.label :child_id %>
+    <%= form.text_field :child_id, value: @child.baby_name, disabled: true, class: "form-control" %>
+    <%= form.hidden_field :child_id, value: @child.id %>
   </div>
 
-  <div>
-    <%= form.label :medic_id, style: "display: block" %>
-    <%= form.text_field :medic_id %>
+  <div class="form-group">
+    <%= form.label :medic_id %>
+    <%= form.text_field :medic_id, value: current_medic.email, disabled: true, class: "form-control" %>
   </div>
-
-  <div>
-    <%= form.label :status, style: "display: block" %>
-    <%= form.check_box :status %>
+<br />
+  <div class="form-group">
+    <%= form.submit class: "btn btn-primary" %>
   </div>
-
-  <div>
-    <%= form.submit %>
-  </div>
+</form>
 <% end %>

@@ -1,5 +1,5 @@
 class DashboardController < ApplicationController
-  # before_action :authenticate_medic!
+  
 
   def index
         
