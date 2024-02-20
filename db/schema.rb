@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_17_080802) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_20_102311) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -30,7 +30,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_17_080802) do
     t.date "scheduled_date"
     t.bigint "child_id", null: false
     t.bigint "medic_id", null: false
-    t.boolean "status"
+    t.boolean "status", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["child_id"], name: "index_immunization_schedules_on_child_id"

@@ -210,4 +210,12 @@
     display: flex;
     justify-content: space-between;
   }
-  
+  /*baby show page */
+  .baby-profile {
+      /* font-size: 10px; */
+      /* float: left; */
+      height: 70%;
+      width: 20%;
+      padding-left: 10px;
+      padding-top: 20px;
+  }
