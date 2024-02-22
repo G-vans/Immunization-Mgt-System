@@ -88,7 +88,7 @@ end
       )
   
       # Redirect to dashboard on success
-      redirect_to dashboard_index_path, notice: 'Call successfully initiated.'
+      redirect_to dashboard_index_path, notice: 'Call to Mother Initiated....'
     rescue Twilio::REST::TwilioError => e
       # Handle Twilio API errors and display a flash alert
       redirect_to root_path, alert: "Error initiating call: #{e.message}"
