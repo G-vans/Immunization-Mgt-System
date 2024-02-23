@@ -75,7 +75,6 @@ end
 
   def follow_up_call
     account_sid = ENV['TWILIO_ACCOUNT_SID']
-    
     auth_token = ENV['TWILIO_AUTH_TOKEN']
     
     @client = Twilio::REST::Client.new(account_sid, auth_token)
@@ -86,9 +85,11 @@ end
         to: '+254727538865',
         from: '+15755793821'
       )
+
+      flash[:notice] = 'Call to Mother Initiated....'
   
       # Redirect to dashboard on success
-      redirect_to dashboard_index_path, notice: 'Call to Mother Initiated....'
+      redirect_to immunization_schedules_path, notice: 'Call to Mother Initiated....'
     rescue Twilio::REST::TwilioError => e
       # Handle Twilio API errors and display a flash alert
       redirect_to root_path, alert: "Error initiating call: #{e.message}"
