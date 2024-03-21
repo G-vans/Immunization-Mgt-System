@@ -84,7 +84,7 @@ class ChildrenController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def child_params
-      params.require(:child).permit(:baby_name, :parent_name, :date_of_birth, :gender, :phone_number, :weight)
+      params.require(:child).permit(:baby_name, :parent_name, :date_of_birth, :gender, :phone_number, :weight, :language)
     end
 
     def send_sms(child)
@@ -93,7 +93,7 @@ class ChildrenController < ApplicationController
         apikey = ENV["AT_APIKEY"]
       
         # Initialize the SDK
-        @AT = AfricasTalking::Initialize.new(username, apikey)
+        # @AT = AfricasTalking::Initialize.new(username, apikey)
       
         sms = @AT.sms
       

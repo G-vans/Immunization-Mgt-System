@@ -1,19 +1,16 @@
-<div class="homepage-container">
-  <div class="image-container">
-    <%= image_tag "Baby-vaxx2.jpg", class: "background-image" %>
-    
-  </div>
-</div>
-<br />
-
-<hr class="line" />
-
-<div class="text-center">
-      <h1 style="color: teal;">Helping Babies Get Their Immunizations</h1>
-<p style="color: teal;">Stay informed and support newborns in receiving their essential immunizations. Click the button below to start.</p>
-
+<div class="homepage-container position-relative">
+  <%= image_tag "Baby-vaxx2.jpg", class: "background-image" %>
+  <div class="overlay"></div> <!-- Semi-transparent overlay -->
+  
+  <div class="row justify-content-center align-items-center h-100 position-absolute top-0 start-0">
+    <div class="col-md-6 text-center">
+      <h1 style="color: white;">Helping Babies Get Their Immunizations</h1>
+      <p style="color: teal;">Stay informed and support newborns in receiving their essential immunizations. Click the button below to start.</p>
       <%= link_to "Get Started", dashboard_index_path, class: "btn btn-primary" %>
     </div>
+  </div>
+</div>
+
 <br />
 <hr class="line" />
 <div class="container">

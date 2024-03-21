@@ -17,12 +17,19 @@
  * {
     font-family: 'Montserrat', sans-serif;
   }
+  .nav-z {
+    z-index: 1000;
+  }
+  .bg-nav {
+    background-color: #343a40; /* Replace 'your-color' with the desired color value */
+  }
+  
   
  .homepage-container {
     position: relative;
     width: 100%;
-    height: 0;
-    padding-bottom: 50%;
+    height: 100vh;
+    /* padding-bottom: 50%; */
   }
   
   .image-container {
@@ -34,10 +41,46 @@
   }
   
   .background-image {
+    /* position: absolute; */
+    /* top: 0; */
+    /* left: 0; */
     width: 100%;
     height: 100%;
+    margin-top: 0;
     object-fit: cover;
+    /* opacity: 0.2; */
   }
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+  .text-center {
+    position: relative;
+    z-index: 1; /* Ensure text is above the overlay */
+    background-color: transparent; /* Make the text container transparent */
+  }
+  /* Center align text vertically */
+.position-relative {
+  position: relative;
+}
+
+.h-100 {
+  height: 100%;
+}
+
+/* Adjust margin to position content in the middle on the left side */
+@media (min-width: 768px) {
+  .start-0 {
+    margin-left: 0;
+  }
+}
+.bg-transparent {
+  background-color: transparent !important;
+}
   
   .overlay-text {
     position: absolute;
