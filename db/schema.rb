@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_21_090657) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_23_092846) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -24,6 +24,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_21_090657) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "language"
+  end
+
+  create_table "educational_messages", force: :cascade do |t|
+    t.string "title"
+    t.text "content"
+    t.string "category"
+    t.string "duration"
+    t.bigint "medic_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["medic_id"], name: "index_educational_messages_on_medic_id"
   end
 
   create_table "immunization_schedules", force: :cascade do |t|
@@ -58,6 +69,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_21_090657) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "educational_messages", "medics"
   add_foreign_key "immunization_schedules", "children"
   add_foreign_key "immunization_schedules", "medics"
 end

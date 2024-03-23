@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :educational_messages
   get 'dashboard/index'
   post '/send_sms', to: 'children#send_sms'
   post '/follow_up', to: 'immunization_schedules#follow_up_call'
