@@ -93,7 +93,7 @@ class ChildrenController < ApplicationController
         apikey = ENV["AT_APIKEY"]
       
         # Initialize the SDK
-        # @AT = AfricasTalking::Initialize.new(username, apikey)
+        @AT = AfricasTalking::Initialize.new(username, apikey)
       
         sms = @AT.sms
       

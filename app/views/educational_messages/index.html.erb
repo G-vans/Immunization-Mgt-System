@@ -1,14 +1,58 @@
-<p style="color: green"><%= notice %></p>
 
-<h1>Educational messages</h1>
 
-<div id="educational_messages">
-  <% @educational_messages.each do |educational_message| %>
-    <%= render educational_message %>
-    <p>
-      <%= link_to "Show this educational message", educational_message %>
-    </p>
-  <% end %>
+<div class="container-fluid">
+  <div class="row">
+    <!-- Sidebar -->
+    <div class="col-md-3 col-xl-2 sidebar">
+      <%= render partial: "shared/sidebar" %>
+    </div>
+
+    <!-- Main Content -->
+    <div class="col-md-9 col-xl-10">
+      <div class="main-content-container">
+        <h1>Educational Messages</h1>
+        <div class="row">
+          <div class="col-md-6">
+            <%= form_with url: children_path, class: "search-form", method: :get do |form| %>
+              <div class="input-group">
+                <%= form.text_field :name, value: params[:name], class: "form-control", placeholder: "Search for a message by title" %>
+                <div class="input-group-append">
+                  <%= form.submit "Search", class: "btn btn-primary" %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+          <div class="col-md-6 text-right">
+            <%= link_to "New Message", new_educational_message_path, class: "btn btn-success" %>
+          </div>
+        </div>
+        <br />
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Content</th>
+                <th>Category</th>
+                <th>Duration</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @educational_messages.each do |message| %>
+                <tr>
+                  <td><%= truncate(message.title, length: 30) %></td>
+                  <td><%= truncate(message.content, length: 60) %></td>
+                  <td><%= truncate(message.category, length: 20) %></td>
+                  <td>
+                    <%= link_to "View more", message, class: "btn btn-info btn-sm mr-1" %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
-<%= link_to "New educational message", new_educational_message_path %>

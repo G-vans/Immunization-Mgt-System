@@ -21,7 +21,8 @@
     z-index: 1000;
   }
   .bg-nav {
-    background-color: #343a40; /* Replace 'your-color' with the desired color value */
+    /* background-color: #343a40; Replace 'your-color' with the desired color value */
+    color: teal;
   }
   
   

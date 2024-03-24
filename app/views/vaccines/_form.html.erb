@@ -11,17 +11,17 @@
     </div>
   <% end %>
 
-  <div>
+  <div class="form-group">
     <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
+    <%= form.text_field :name, class: "form-control" %>
   </div>
-
-  <div>
+<br />
+  <div class="form-group">
     <%= form.label :status, style: "display: block" %>
-    <%= form.text_field :status %>
+    <%= form.collection_select :status, Vaccine::VACCINE_STATUS, :to_s, :to_s, { prompt: "Choose a status" }, class: "form-control" %>
   </div>
-
-  <div>
-    <%= form.submit %>
+<br />
+  <div class="form-group">
+    <%= form.submit class:"btn btn-primary" %>
   </div>
 <% end %>

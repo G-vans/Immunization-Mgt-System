@@ -3,7 +3,7 @@ class VaccinesController < ApplicationController
 
   # GET /vaccines or /vaccines.json
   def index
-    @vaccines = Vaccine.all
+    @vaccines = Vaccine.all.order(:id)
   end
 
   # GET /vaccines/1 or /vaccines/1.json
@@ -38,7 +38,7 @@ class VaccinesController < ApplicationController
   def update
     respond_to do |format|
       if @vaccine.update(vaccine_params)
-        format.html { redirect_to vaccine_url(@vaccine), notice: "Vaccine was successfully updated." }
+        format.html { redirect_to vaccines_url, notice: "Vaccine was successfully updated." }
         format.json { render :show, status: :ok, location: @vaccine }
       else
         format.html { render :edit, status: :unprocessable_entity }

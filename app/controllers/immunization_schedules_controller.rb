@@ -81,7 +81,7 @@ end
   
     begin
       call = @client.calls.create(
-        url: 'http://demo.twilio.com/docs/voice.xml',
+        url: 'https://handler.twilio.com/twiml/EH807ccec3a6b78aae4071a71b43ff1f67',
         to: '+254727538865',
         from: '+15755793821'
       )
@@ -89,7 +89,7 @@ end
       flash[:notice] = 'Call to Mother Initiated....'
   
       # Redirect to dashboard on success
-      redirect_to immunization_schedules_path, notice: 'Call to Mother Initiated....'
+      redirect_to dashboard_index_path, notice: 'Call to Mother Initiated....'
     rescue Twilio::REST::TwilioError => e
       # Handle Twilio API errors and display a flash alert
       redirect_to root_path, alert: "Error initiating call: #{e.message}"

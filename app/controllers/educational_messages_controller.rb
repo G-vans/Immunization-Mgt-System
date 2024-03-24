@@ -22,10 +22,11 @@ class EducationalMessagesController < ApplicationController
   # POST /educational_messages or /educational_messages.json
   def create
     @educational_message = EducationalMessage.new(educational_message_params)
+    @educational_message.medic_id = current_medic.id
 
     respond_to do |format|
       if @educational_message.save
-        format.html { redirect_to educational_message_url(@educational_message), notice: "Educational message was successfully created." }
+        format.html { redirect_to educational_messages_url, notice: "Educational message was to the parents." }
         format.json { render :show, status: :created, location: @educational_message }
       else
         format.html { render :new, status: :unprocessable_entity }
