@@ -2,7 +2,8 @@ require_relative "boot"
 
 require "rails/all"
 require 'AfricasTalking'
-require 'twilio-ruby'
+# require 'twilio-ruby'
+require 'signalwire'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
