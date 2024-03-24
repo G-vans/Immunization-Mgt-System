@@ -71,7 +71,7 @@ end
     end
   end
 
-  #twilio follow up call
+  #signalwire follow up call
 
   def follow_up_call
     client = Signalwire::REST::Client.new ENV['SIGNALWIRE_PROJECT_KEY'], ENV['SIGNALWIRE_TOKEN'], signalwire_space_url: ENV['SIGNALWIRE_SPACE']
