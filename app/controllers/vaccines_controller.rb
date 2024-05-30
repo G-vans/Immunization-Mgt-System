@@ -4,6 +4,21 @@ class VaccinesController < ApplicationController
   # GET /vaccines or /vaccines.json
   def index
     @vaccines = Vaccine.all.order(:id)
+
+    @low_stock_vaccines = @vaccines.select { |vaccine| vaccine.quantity <= 10 }
+    # @products = Product.search(params[:name])
+    # @low_stock_products = Product.low_stock
+
+    if @low_stock_vaccines.present?
+      low_stock_names = @low_stock_vaccines.map(&:name).join(", ")
+      flash.now[:notice] = "#{low_stock_names} #{'are' if @low_stock_vaccines.count > 1} low on stock"
+    end
+
+    stockout_sms
+    # if @low_stock_products.present?
+    #   low_stock_names = @low_stock_products.map(&:name).join(", ")
+    #   flash.now[:notice] = "#{low_stock_names} #{"are" if @low_stock_products.count > 1} low on stock"
+    # end
   end
 
   # GET /vaccines/1 or /vaccines/1.json
@@ -57,6 +72,18 @@ class VaccinesController < ApplicationController
     end
   end
 
+  def stockout_sms
+    @future_schedules = ImmunizationSchedule.where("scheduled_date >= ?", Date.today + 1)
+    
+    @future_schedules.each do |schedule|
+      child = Child.find(schedule.child_id)
+      send_sms(child)
+    end
+  end
+
+  
+  
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_vaccine
@@ -65,6 +92,45 @@ class VaccinesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def vaccine_params
-      params.require(:vaccine).permit(:name, :status)
+      params.require(:vaccine).permit(:name, :quantity)
     end
+
+    #send sms
+    def send_sms(child)
+      
+      username = "Gvans"
+      apikey = ENV["AT_APIKEY"]
+    
+      # Initialize the SDK
+      @AT = AfricasTalking::Initialize.new(username, apikey)
+    
+      sms = @AT.sms
+    
+    baby = child.baby_name
+    parent = child.parent_name
+    to = child.phone_number
+    
+      # Send the welcome message
+      message = "Welcome, #{parent}! Get ready for Chanjo, your ultimate immunization reminder app for your precious little one, #{baby}. We'll ensure you never miss a vaccination appointment. Stay tuned for regular reminders and keep your baby protected!"
+      
+    
+      options = {
+        "to" => to,
+        "message" => message
+      }
+    
+      begin
+        # Send the SMS and retrieve the response
+        response = sms.send(options)
+    
+        # Log success or any necessary information
+        Rails.logger.info "SMS sent successfully"
+      rescue AfricasTalking::AfricasTalkingException => ex
+        # Log error or any necessary information
+        Rails.logger.error "Failed to send SMS: #{ex.message}"
+      end
+      
+    end
+
+
 end

@@ -43,7 +43,7 @@ class ChildrenController < ApplicationController
 
     respond_to do |format|
       if @child.save
-        send_sms(@child)
+        # send_sms(@child)
         format.html { redirect_to child_url(@child), notice: "Child was successfully created." }
         format.json { render :show, status: :created, location: @child }
       else

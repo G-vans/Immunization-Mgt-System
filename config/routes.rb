@@ -3,10 +3,16 @@ Rails.application.routes.draw do
   get 'dashboard/index'
   post '/send_sms', to: 'children#send_sms'
   post '/follow_up', to: 'immunization_schedules#follow_up_call'
+  # post 'stockout', to: 'vaccine#stockout_sms'
   # resources :immunization_schedules
   # get 'home/index'
   devise_for :medics
-  resources :vaccines
+  resources :vaccines do
+    member do
+      post :send_sms
+    end
+  end
+  
   # resources :children
 
   resources :immunization_schedules, only: [:index, :new, :create, :show, :edit, :destroy] do

@@ -1,4 +1,4 @@
-<p style="color: green"><%= notice %></p>
+
 
 <div class="container-fluid">
   <div class="row">
@@ -28,6 +28,7 @@
           </div>
         </div>
         <br />
+        <p class="badge text-bg-warning"><%= notice %></p>
 
         <div class="table-responsive">
           <table class="table table-bordered">
@@ -35,6 +36,7 @@
               <tr>
                 <th>ID.No</th>
                 <th>Vaccine Name</th>
+                <th>Stock Level (Qty)</th>
                 <th>Vaccine Status</th>
                 <th>Edit</th>
               </tr>
@@ -44,16 +46,25 @@
                 <tr>
                   <td><%= vaccine.id %></td>
                   <td><%= vaccine.name %></td>
-                  <td><%= vaccine.status %></td>
+                  <td><%= vaccine.quantity %></td>
                   <td>
-                    <%= link_to "Edit Status", edit_vaccine_path(vaccine), class: "btn btn-info btn-sm mr-1" %>
+                    <% if vaccine.quantity <= 10 %>
+                      <span class="badge text-bg-danger">Low Stock</span>
+                    <% else %>
+                      <span class="badge text-bg-success">Normal Stock</span>
+                    <% end %>
+                  </td>
+                  <td>
+                    <%= link_to "Send SMS", edit_vaccine_path(vaccine), class: "btn btn-info btn-sm mr-1" %>
                   </td>
                 </tr>
               <% end %>
             </tbody>
           </table>
         </div>
-
+        <p>
+        <% stockout_sms %>
+        </p>
       </div>
     </div>
   </div>

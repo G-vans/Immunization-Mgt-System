@@ -16,10 +16,15 @@
     <%= form.text_field :name, class: "form-control" %>
   </div>
 <br />
-  <div class="form-group">
+  <%# <div class="form-group">
     <%= form.label :status, style: "display: block" %>
-    <%= form.collection_select :status, Vaccine::VACCINE_STATUS, :to_s, :to_s, { prompt: "Choose a status" }, class: "form-control" %>
+    <%# <%= form.collection_select :status, Vaccine::VACCINE_STATUS, :to_s, :to_s, { prompt: "Choose a status" }, class: "form-control" %>
+  </div> %> %>
+  <div class="form-group">
+    <%= form.label :quantity, style: "display: block" %>
+    <%= form.number_field :quantity, class: "form-control" %>
   </div>
+  <br />
 <br />
   <div class="form-group">
     <%= form.submit class:"btn btn-primary" %>
