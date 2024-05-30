@@ -5,6 +5,9 @@ ruby "3.1.3"
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.1.3"
 
+gem 'error_highlight', '0.6.0'
+
+
 gem 'dotenv', groups: [:development, :test]
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
@@ -61,7 +64,7 @@ group :development do
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
 
-  gem "error_highlight", ">= 0.4.0", platforms: [:ruby]
+  # gem "error_highlight", ">= 0.4.0", platforms: [:ruby]
 end
 
 group :test do
